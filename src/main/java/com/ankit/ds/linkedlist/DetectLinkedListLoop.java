@@ -34,6 +34,19 @@ public class DetectLinkedListLoop {
         return false;
     }
 
+    public static boolean twoPointer(ListNode head){
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr!=null && fastPtr.getNext()!=null){
+            fastPtr = fastPtr.getNext().getNext();
+            slowPtr = slowPtr.getNext();
+            if(fastPtr==slowPtr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws Exception {
         CircularLinkedList circularLinkedList = new CircularLinkedList();
         circularLinkedList.addToHead(0);
@@ -50,8 +63,10 @@ public class DetectLinkedListLoop {
 
       //  System.out.println(bruteForce(linkedList.head));
       //  System.out.println(bruteForce(circularLinkedList.getTail().getNext()));
-        System.out.println(withHashSet(linkedList.head));
-        System.out.println(withHashSet(circularLinkedList.getTail().getNext()));
+       // System.out.println(withHashSet(linkedList.head));
+       // System.out.println(withHashSet(circularLinkedList.getTail().getNext()));
+        System.out.println(twoPointer(linkedList.head));
+        System.out.println(twoPointer(circularLinkedList.getTail().getNext()));
 
     }
 }
