@@ -15,7 +15,7 @@ public class LinkedListRecurTrav {
 
     public static void main(String[] args) throws Exception {
         LinkedList linkedList = new LinkedList();
-        linkedList.insertAtBegin(new ListNode(1));
+        linkedList.insertAtBegin(1);
         linkedList.insert(2,1);
         linkedList.insert(3,2);
         linkedList.insert(4,3);

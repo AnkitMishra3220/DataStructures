@@ -11,41 +11,49 @@ public class LinkedList {
         return head;
     }
 
-    public synchronized void insertAtBegin(ListNode listNode){
+    public synchronized void insertAtBegin(int data){
+        ListNode listNode = new ListNode(data);
             listNode.setNext(head);
             head = listNode;
             length++;
     }
 
-    public synchronized void insertAtEnd(ListNode listNode){
+    public synchronized void insertAtEnd(int data){
+        ListNode listNode = new ListNode(data);
+
         if(head == null){
             head = listNode;
             length++;
+            return;
         }
-        ListNode currentNode = head;
-        while (true){
-            if(currentNode.getNext() == null){
-                currentNode.setNext(listNode);
-                length ++;
-                break;
-            }
-            currentNode = currentNode.getNext();
 
+        if(head.getNext()==null){
+            head.setNext(listNode);
+            length++;
+            return;
         }
+
+        ListNode currentNode = head;
+
+        while (currentNode.getNext()!=null){
+            currentNode = currentNode.getNext();
+        }
+        currentNode.setNext(listNode);
+        length++;
 
     }
 
-    public synchronized void insert(int data,int position) throws Exception {
+    public synchronized void insert(int data,int position) {
         if(position < 0 || position > length){
-            throw new Exception("Invalid Position");
+            System.out.println("Invalid Position");
         }
         ListNode listNode = new ListNode(data);
         if(position == 0){
-            insertAtBegin(listNode);
+            insertAtBegin(listNode.getData());
             return;
         }
         if(position == length+1){
-            insertAtEnd(listNode);
+            insertAtEnd(listNode.getData());
             return;
         }
         ListNode currentNode = head;
