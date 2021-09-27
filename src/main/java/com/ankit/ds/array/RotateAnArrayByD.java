@@ -1,5 +1,7 @@
 package com.ankit.ds.array;
 
+import java.util.ArrayList;
+
 public class RotateAnArrayByD {
 
     public static int[] rotateAnArrayByD(int[] input,int d){
