@@ -1,10 +1,14 @@
 package com.ankit.ds.collection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-// Capacity of Array List - n + (n/2+1)
+// Load Factor of Array List - (n/2+1)
+// Array lists, methods are not synchronized and thread safe
+// it uses the Collections.synchronizedList() method that synchronizes the list as a whole.
+
 public class LearnArrayList {
 
     public static void main(String[] args) {
@@ -12,9 +16,7 @@ public class LearnArrayList {
         list.add(1);
         list.add(2);
         list.add(3);
-
         System.out.println(list);
-
         list.add(4);  // This will add 4 at the end of the List.
         System.out.println(list);
 
