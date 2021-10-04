@@ -10,7 +10,7 @@ public class CalculatorImpl {
 
     public static void main(String[] args) {
         Calculator calculator = (i1,i2) -> i2-i1;
-       // System.out.println(calculator.substract(5,10));
+        System.out.println(calculator.substract(5,10));
 
         List<Integer> list = Arrays.asList(1,2,5,6,7,10,10,20,20,21,21);
 
