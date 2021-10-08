@@ -1,0 +1,153 @@
+SELECT Employee_Name,Department_Name,COUNT(*)
+FROM Employees 
+GROUP BY Department_Name  --> This is not going to work 
+
+--> Combine arregate column with non-arregate
+
+Employee_Name Department_Name Total_Number_Of_Employee 
+
+SELECT Employee_Name,Department_Name,count(*) over (partition by Department_Name) FROM Employees
+
+SELECT Employee_Name,Department_Name,count(*) over () --> Total Count 
+ FROM Employees
+
+ SELECT Employee_Name,Department_Name,
+ count(*) over (partition by Department_Name) as dept_count,
+ count(*) over (partition by Reason_Name) as reason_count,
+ FROM Employees
+
+FROM Clause --> WHERE Clause --> Select List 
+ 
+ --> Windowing function runs in the end 
+
+  SELECT Employee_Name,Department_Name,
+ count(*) over ()
+ FROM Employees where Reason_id = 3; 
+
+ --> Running Total 
+
+
+
+ amount 
+
+ 20 t1
+ 21 t2
+ null t3
+ 24 t4
+ null t5 
+
+TRUE 
+ null 
+ 24
+
+ False 
+null 
+
+24 
+
+
+
+
+
+
+SELECT FROM Apartment 
+
+ SELECT first_name,hire_date,salary,SUM(Salary) OVER(ORDER BY hire_date RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as running_total
+ FROM EMPLOYEES; 
+
+  SELECT first_name,hire_date,salary,SUM(Salary) OVER(ORDER BY hire_date) as running_total
+ FROM EMPLOYEES;
+
+-- Running Total with partition by 
+
+ SELECT first_name,hire_date,salary,SUM(Salary) OVER(PARTITION BY department ORDER BY hire_date) as running_total
+ FROM EMPLOYEES; 
+
+-- adding previous ROW
+
+  SELECT first_name,hire_date,salary,SUM(Salary) OVER(ORDER BY hire_date RANGE BETWEEN 1 PRECEDING AND CURRENT ROW) as running_total
+ FROM EMPLOYEES; 
+
+ Rank()
+
+ SELECT first_name,email,salary,rank() over(partition by department ORDER by salary desc)
+ from Employees;   --> It will provide you rank() grouped by department and order by salary
+
+ rownum 
+
+ row_number() over() as rownum, SET @cnt = 0;SELECT
+    (@cnt =@cnt + 1) AS rowNumber,
+    rowID
+FROM myTable
+WHERE CategoryID = 1
+
+ NTILE()
+
+  SELECT first_name,email,salary,NTILE(5) over(partition by department ORDER by salary desc) as salary_bucket
+ from Employees; --> Divide the data into 5 buckets 
+
+ first_value , nth_value()
+
+ SELECT first_value(salary) over(partition by department order by salary desc) first_value
+
+ SELECT nth_value(salary,5)
+
+ lead() and lag()
+
+ lead() --> next row value to column 
+
+ Select first_name,last_name,salary,lead(salary) over() next_salary; 
+
+ lag() --> previous row value to column 
+to_timestamp(timestampist,'yyyyMMddHHmmss')
+ Next Higher paid employee 
+
+ Select department,last_name,salary,lag(salary) over(order by salary desc) closest_higer_salary
+ closest_lower_salary lead
+
+ COALESCE() - First non null value
+
+
+ -- cloest higher salary with order by 
+
+ gropping set() -- allow us to see agg data based on multiple group by column indivisual 
+
+ select continent,country,city,sum(unit_sold)
+ from sales group by gropping sets(continent,country,city,()--> total unit sold(first record));
+
+ roll up 
+select continent,country,city,sum(unit_sold)
+ from sales group by rollup(continent,country,city); --> group by all columns, group by nothing, group by each column 
+
+ cube() --> all combination 
+
+ select continent,country,city,sum(unit_sold)
+ from sales group by cube(continent,country,city); --> group by all combination 
+
+WITH CTE([FirstName], 
+    [LastName], 
+    [Country], 
+    DuplicateCount)
+AS (SELECT [FirstName], 
+           [LastName], 
+           [Country], 
+           ROW_NUMBER() OVER(PARTITION BY [FirstName], 
+                                          [LastName], 
+                                          [Country]
+           ORDER BY ID) AS DuplicateCount
+    FROM [SampleDB].[dbo].[Employee])
+DELETE FROM CTE
+WHERE DuplicateCount > 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
