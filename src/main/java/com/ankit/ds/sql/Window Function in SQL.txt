@@ -1,3 +1,5 @@
+--> Windowing Function runs towards the end after where clause but before order by clause
+
 SELECT Employee_Name,Department_Name,COUNT(*)
 FROM Employees 
 GROUP BY Department_Name  --> This is not going to work 
@@ -92,7 +94,9 @@ WHERE CategoryID = 1
 
  SELECT nth_value(salary,5)
 
- lead() and lag()
+ lead() and
+
+ lag() --> Previous row value to column
 
  lead() --> next row value to column 
 
@@ -123,7 +127,7 @@ select continent,country,city,sum(unit_sold)
 
  select continent,country,city,sum(unit_sold)
  from sales group by cube(continent,country,city); --> group by all combination 
-
+--- Remove Duplicate
 WITH CTE([FirstName], 
     [LastName], 
     [Country], 
@@ -138,6 +142,39 @@ AS (SELECT [FirstName],
     FROM [SampleDB].[dbo].[Employee])
 DELETE FROM CTE
 WHERE DuplicateCount > 1;
+
+----
+
+ANY/ALL --> We can use ANY and ALL with having and where clause
+
+SELECT * FROM EMPLOYEES WHERE region_id > ANY
+(SELECT region_id FROM regions where country = 'United States');
+--> Region_Id value should be greater then Any of the sub query value.
+SELECT * FROM EMPLOYEES WHERE region_id > ALL
+(SELECT region_id FROM regions where country = 'United States');
+--> Region_Id value should be greater then ALL of the sub query value.
+
+SELECT * FROM EMPLOYEES WHERE department = ANY(SELECT DEPT FROM DEPARTMENTS
+WHERE division = 'Kids') AND
+hire_date > ALL (SELECT hire_date FROM employees where dept = 'Maintenance')
+
+SELECT salary FROM (
+SELECT Salary,count(*)
+FROM employees
+GROUP BY salary
+ORDER BY COUNT(*) desc, salary desc
+LIMIT 1) a ;
+
+SELECT SALARY
+FROM employees
+GROUP BY salary
+HAVING COUNT(*) >= ALL(SELECT COUNT(*) FROM employees GROUP BY salary)
+ORDER BY salary DESC
+LIMIT 1;
+
+
+
+
 
 
 

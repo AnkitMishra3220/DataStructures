@@ -11,6 +11,10 @@ public class MaxProfit {
             }
 
         }
+
+        StringBuilder sb = new StringBuilder("");
+        sb.setCharAt(1,'A');
+
         return profit;
     }
 
